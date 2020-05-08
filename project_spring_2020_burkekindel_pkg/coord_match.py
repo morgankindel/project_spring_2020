@@ -1,5 +1,4 @@
-%%writefile coordinate_match.py 
-
+%%writefile coord_match.py 
 
 #import required packages 
 import os
@@ -76,7 +75,41 @@ def template_grid():
     return(result_grid_filename)
 
 #-------------------------------------------------------
-def 
+def match_images():
+
+    #resize template grid
+    scale_percent = 25 #percent of original image size
+    temp_width = int(template_grid.shape[1] * scale_percent/100)
+    temp_height = int(template_grid.shape[0]* scale_percent/100)
+    temp_dim = (temp_width, temp_height)
+    template_grid= cv2.resize(template_grid, temp_dim, interpolation = cv2.INTER_AREA)
+
+    #match template grid to sample/input image and frame reference image with most similarity 
+
+
+
+    res = cv2.matchTemplate(input_img_bw, template_grid, cv2.TM_CCOEFF_NORMED)
+    min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
+    top_left = max_loc
+    bottom_right = (top_left[0] + width, top_left[1]+height)
+
+
+    cv2.rectangle(template_grid, top_left, bottom_right, 255, 2)
+    match_images()
+
+
+
+#-------------------------------------------------------    
+def save_framed_grid():
+    #save framed grid to Processed images file './Processed_images/___.jpg', before running code set file name that corresponds to original input image 
+    output_path = './Processed_images/' 
+    for img in glob.glob(output_path):
+        output_img_count = 0
+        status = cv2.imwrite("grid w/ output_filepath%s.png" %output_img_count, template_grid)
+        output_img_count +=1
+    #double check that file has saved 
+    print('Images have been saved: ', status) 
+    save_framed_grid()
 
 
     
