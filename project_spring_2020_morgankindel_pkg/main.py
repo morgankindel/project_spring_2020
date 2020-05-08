@@ -14,36 +14,43 @@ from os import path
 #--create a counter that upticks when a sequentially named image is found: 
 #--all images must be named img1 -> imgX where X is the total number of images
 #--this counter tracks how many images we are matching stored in 'filecount'
-i=1
-pathPresence = True
-while pathPresence == True:
-    pathPresence = path.exists('./Documents/project_spring_2020_burkekindel_pkg/Sample_images/img%d.jpg' %i )
-    print(pathPresence)
-    i+=1
-    print(i)
 
-print(i-2)
-filecount = i-2
 
-i=1
+def filecount(i):
+    i=1
+    pathPresence = True
+    while pathPresence == True:
+        pathPresence = path.exists('./Documents/project_spring_2020_burkekindel_pkg/Sample_images/img%d.jpg' %i )
+        print(pathPresence)
+        i+=1
+        print(i)
+
+    print(i-2)
+    filecount = i-2
+
+    i=1
+    return(filecount())
 
 #--create a dictionary to hold our identified number of images so they can be easily looped through
 #--length of this dictionary will serve as our new filecount as well
-imgDict = {}
-while i <= filecount:
 
-    input_img = cv2.imread('./Documents/project_spring_2020_burkekindel_pkg/Sample_images/img%d.jpg' %i)
+def create_dict(i):
+    imgDict = {}
+    while i <= filecount:
 
-  #scale input image and set threshold
-    scale_percent = 8 #percent of original image size
-    width = int(input_img.shape[1]* scale_percent/100)
-    height = int(input_img.shape[0]* scale_percent/100)
-    dim = (width, height)
-    input_img_resized = cv2.resize(input_img, dim, interpolation = cv2.INTER_AREA)
-  #  input_img_gs = cv2.cvtColor(input_img_resized, cv2.COLOR_BGR2GRAY)
-    thresh, input_img_bw = cv2.threshold(input_img_resized,5,250,cv2.THRESH_BINARY)
-    imgDict['%d' %i] = input_img_bw
-    i+=1
+        input_img = cv2.imread('./Documents/project_spring_2020_burkekindel_pkg/Sample_images/img%d.jpg' %i)
+
+      #scale input image and set threshold
+        scale_percent = 8 #percent of original image size
+        width = int(input_img.shape[1]* scale_percent/100)
+        height = int(input_img.shape[0]* scale_percent/100)
+        dim = (width, height)
+        input_img_resized = cv2.resize(input_img, dim, interpolation = cv2.INTER_AREA)
+      #  input_img_gs = cv2.cvtColor(input_img_resized, cv2.COLOR_BGR2GRAY)
+        thresh, input_img_bw = cv2.threshold(input_img_resized,5,250,cv2.THRESH_BINARY)
+        imgDict['%d' %i] = input_img_bw
+        i+=1
+        return create_dict()
     
     
 import math
