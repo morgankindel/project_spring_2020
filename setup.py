@@ -4,14 +4,14 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="project_spring_2020_morgankindel_pkg",
+    name="project_spring_2020_burkekindel_pkg",
     version="0.0.1",
     author="Morgan Kindel",
     author_email="kinde108@mail.chapman.edu",
     description="Final project",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/pypa/packaging_demo",
+    url="https://github.com/morgankindel/project_spring_2020.git"
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
